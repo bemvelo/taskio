@@ -68,3 +68,37 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2026-04-29 14:29:21,846 INFO Login success: Buhlebemvelo
 2026-04-29 14:29:21,868 INFO Protected accessed by: Buhlebemvelo
 2026-04-29 14:29:21,874 INFO Protected accessed by: Buhlebemvelo
+2026-04-29 14:57:44,591 INFO Register attempt: Buhlebemvelo
+2026-04-29 14:57:44,802 INFO Registered: Buhlebemvelo
+2026-04-29 14:57:46,020 INFO Login attempt: Buhlebemvelo
+2026-04-29 14:57:46,226 INFO Login success: Buhlebemvelo
+2026-04-29 14:57:46,252 INFO Protected accessed by: Buhlebemvelo
+2026-04-29 14:57:46,257 INFO Protected accessed by: Buhlebemvelo
+2026-04-29 15:00:11,118 INFO Login attempt: Buhlebemvelo
+2026-04-29 15:00:11,290 INFO Login success: Buhlebemvelo
+2026-04-29 15:00:11,304 INFO Protected accessed by: Buhlebemvelo
+2026-04-29 15:00:11,307 INFO Protected accessed by: Buhlebemvelo
+2026-04-29 15:00:33,659 INFO Login attempt: Buhlebemvelo
+2026-04-29 15:00:33,849 INFO Login success: Buhlebemvelo
+2026-04-29 15:00:33,868 INFO Protected accessed by: Buhlebemvelo
+2026-04-29 15:00:33,872 INFO Protected accessed by: Buhlebemvelo
+2026-04-29 15:33:23,761 INFO Login attempt: Buhlebemvelo
+2026-04-29 15:33:23,761 WARNING Failed login: Buhlebemvelo
+2026-04-29 15:33:29,491 INFO Login attempt: Buhlebemvelo
+2026-04-29 15:33:29,491 WARNING Failed login: Buhlebemvelo
+2026-04-29 15:33:30,134 INFO Login attempt: Buhlebemvelo
+2026-04-29 15:33:30,134 WARNING Failed login: Buhlebemvelo
+2026-04-29 15:33:30,379 INFO Login attempt: Buhlebemvelo
+2026-04-29 15:33:30,379 WARNING Failed login: Buhlebemvelo
+2026-04-29 15:33:30,651 INFO Login attempt: Buhlebemvelo
+2026-04-29 15:33:30,651 WARNING Failed login: Buhlebemvelo
+2026-04-29 15:33:30,891 INFO Login attempt: Buhlebemvelo
+2026-04-29 15:33:30,891 WARNING Failed login: Buhlebemvelo
+2026-04-29 15:33:48,425 INFO Register attempt: tshabangu
+2026-04-29 15:33:48,653 INFO Registered: tshabangu
+2026-04-29 15:33:50,045 INFO Login attempt: Buhlebemvelo
+2026-04-29 15:33:50,045 WARNING Failed login: Buhlebemvelo
+2026-04-29 15:33:54,690 INFO Login attempt: tshabangu
+2026-04-29 15:33:54,911 INFO Login success: tshabangu
+2026-04-29 15:33:54,931 INFO Protected accessed by: tshabangu
+2026-04-29 15:33:54,939 INFO Protected accessed by: tshabangu
