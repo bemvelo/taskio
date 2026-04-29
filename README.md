@@ -1,7 +1,11 @@
 # Taskio
-> Get it done — simply and on track.
-
 A full-stack to-do application built with FastAPI and React (TypeScript), featuring JWT authentication and a clean minimalist UI.
+---
+# To run the project in the terminal :
+
+.\taskio.bat
+
+Then open http://localhost:5173
 
 ---
 
