@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./Protected.css";
 
 interface Task {
   id: number;
@@ -9,7 +10,7 @@ interface Task {
   tag: "Work" | "Personal" | "Urgent" | "School";
 }
 
-export default function Protected() {
+function Protected() {
   const [username, setUsername]   = useState<string>("");
   const [loading, setLoading]     = useState<boolean>(true);
   const [tasks, setTasks]         = useState<Task[]>([
@@ -36,7 +37,7 @@ export default function Protected() {
       })
       .catch(() => navigate("/login"))
       .finally(() => setLoading(false));
-  }, []);
+  }, [navigate]);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -75,25 +76,25 @@ export default function Protected() {
   const greeting  = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
 
   return (
-    <div style={s.page}>
-      <div style={s.shell}>
+    <div className="page">
+      <div className="shell">
 
         {/* ── Header ── */}
-        <div style={s.header}>
-          <div style={s.logoRow}>
-            <div style={s.logoMark}></div>
-            <span style={s.logoText}>Taskio</span>
+        <div className="header">
+          <div className="logoRow">
+            <div className="logoMark"></div>
+            <span className="logoText">Taskio</span>
           </div>
-          <button style={s.logoutBtn} onClick={logout}>Logout</button>
+          <button className="logoutBtn" onClick={logout}>Logout</button>
         </div>
 
         {/* ── Greeting ── */}
-        <div style={s.greeting}>
+        <div className="greeting">
           {loading
-            ? <p style={s.greetName}>Verifying session...</p>
+            ? <p className="greetName">Verifying session...</p>
             : <>
-                <p style={s.greetName}>{greeting}, {username} 👋</p>
-                <p style={s.greetSub}>
+                <p className="greetName">{greeting}, {username} 👋</p>
+                <p className="greetSub">
                   {remaining === 0
                     ? "All done — great work today!"
                     : `${remaining} task${remaining > 1 ? "s" : ""} remaining`}
@@ -103,48 +104,48 @@ export default function Protected() {
         </div>
 
         {/* ── Amber auth bar ── */}
-        <div style={s.accentBar}>
-          <span style={s.accentText}>✓ Authenticated</span>
-          <span style={s.accentBadge}>Protected route</span>
+        <div className="accentBar">
+          <span className="accentText">✓ Authenticated</span>
+          <span className="accentBadge">Protected route</span>
         </div>
 
         {/* ── Filter tabs ── */}
-        <div style={s.filterRow}>
+        <div className="filterRow">
           {(["All", "Active", "Done"] as const).map(f => (
             <button
               key={f}
-              style={{ ...s.filterBtn, ...(filter === f ? s.filterActive : {}) }}
+              className={`filterBtn ${filter === f ? 'filterActive' : ''}`}
               onClick={() => setFilter(f)}
             >
               {f}
             </button>
           ))}
           {tasks.some(t => t.done) && (
-            <button style={s.clearBtn} onClick={clearDone}>
+            <button className="clearBtn" onClick={clearDone}>
               Clear done
             </button>
           )}
         </div>
 
         {/* ── Task list ── */}
-        <div style={s.section}>
-          <div style={s.sectionHead}>
-            <span style={s.sectionTitle}>Today's tasks</span>
-            <span style={s.taskCount}>{filtered.length} tasks</span>
+        <div className="section">
+          <div className="sectionHead">
+            <span className="sectionTitle">Today's tasks</span>
+            <span className="taskCount">{filtered.length} tasks</span>
           </div>
 
           {filtered.length === 0 && (
-            <p style={s.empty}>
+            <p className="empty">
               {filter === "Done" ? "No completed tasks yet." : "No tasks — add one below!"}
             </p>
           )}
 
           {filtered.map(task => (
-            <div key={task.id} style={s.taskRow}>
+            <div key={task.id} className="taskRow">
 
               {/* Checkbox */}
               <div
-                style={{ ...s.checkbox, ...(task.done ? s.checkboxDone : {}) }}
+                className={`checkbox ${task.done ? 'checkboxDone' : ''}`}
                 onClick={() => toggleTask(task.id)}
               >
                 {task.done && (
@@ -156,63 +157,65 @@ export default function Protected() {
               </div>
 
               {/* Text */}
-              <span style={{ ...s.taskText, ...(task.done ? s.taskDone : {}) }}>
+              <span className={`taskText ${task.done ? 'taskDone' : ''}`}>
                 {task.text}
               </span>
 
               {/* Tag */}
-              <span style={{
-                ...s.tag,
-                ...(task.tag === "Urgent"   ? s.tagAmber    :
-                    task.tag === "Personal" ? s.tagPersonal :
-                    s.tagSlate)
-              }}>
+              <span className={`tag ${
+                task.tag === "Urgent"   ? 'tagAmber'    :
+                task.tag === "Personal" ? 'tagPersonal' :
+                task.tag === "School"   ? 'tagSchool'   :
+                'tagSlate'
+              }`}>
                 {task.tag}
               </span>
 
               {/* Delete */}
-              <button style={s.deleteBtn} onClick={() => deleteTask(task.id)}>✕</button>
+              <button className="deleteBtn" onClick={() => deleteTask(task.id)}>✕</button>
             </div>
           ))}
         </div>
 
         {/* ── Add task ── */}
         {showInput ? (
-          <div style={s.addForm}>
+          <div className="addForm">
             <input
-              style={s.addInput}
+              className="addInput"
               placeholder="What needs to be done?"
               value={newTask}
               autoFocus
               onChange={e => setNewTask(e.target.value)}
               onKeyDown={e => e.key === "Enter" && addTask()}
             />
-            <div style={s.addControls}>
+            <div className="addControls">
               <select
-                style={s.tagSelect}
+                className="tagSelect"
+                title="Select task category"
                 value={newTag}
                 onChange={e => setNewTag(e.target.value as Task["tag"])}
               >
                 <option value="Work">Work</option>
                 <option value="Personal">Personal</option>
                 <option value="Urgent">Urgent</option>
+                <option value="School">School</option>
               </select>
-              <button style={s.addConfirm} onClick={addTask}>Add</button>
-              <button style={s.addCancel}
+              <button className="addConfirm" onClick={addTask}>Add</button>
+              <button className="addCancel"
                 onClick={() => { setShowInput(false); setNewTask(""); }}>
                 Cancel
               </button>
             </div>
           </div>
         ) : (
-          <div style={s.addRow} onClick={() => setShowInput(true)}>
-            <div style={s.addIcon}>+</div>
-            <span style={s.addText}>Add a new task...</span>
+          <div className="addRow" onClick={() => setShowInput(true)}>
+            <div className="addIcon">+</div>
+            <span className="addText">Add a new task...</span>
           </div>
         )}
 
         {/* ── Footer stats ── */}
-        <div style={s.footer}>
+        <div className="footer">
           <span>{tasks.length} total</span>
           <span>{tasks.filter(t => t.done).length} completed</span>
           <span>{remaining} remaining</span>
@@ -223,175 +226,4 @@ export default function Protected() {
   );
 }
 
-const s: Record<string, React.CSSProperties> = {
-  page: {
-    minHeight: "100vh",
-    background: "var(--slate-100)",
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    padding: "32px 16px",
-  },
-  shell: {
-    background: "white",
-    borderRadius: "16px",
-    border: "1px solid var(--slate-200)",
-    width: "100%",
-    maxWidth: "520px",
-    boxShadow: "0 4px 32px rgba(15,23,42,0.07)",
-    overflow: "hidden",
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "20px 24px",
-    borderBottom: "1px solid var(--slate-100)",
-  },
-  logoRow:  { display: "flex", alignItems: "center", gap: "8px" },
-  logoMark: { width: "24px", height: "24px", background: "var(--amber-500)", borderRadius: "7px" },
-  logoText: { fontSize: "16px", fontWeight: 500, color: "var(--slate-800)", letterSpacing: "-0.03em" },
-  logoutBtn: {
-    fontSize: "12px", color: "var(--slate-400)",
-    background: "var(--slate-100)", border: "none",
-    borderRadius: "6px", padding: "6px 12px",
-    cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
-  },
-  greeting: { padding: "24px 24px 8px" },
-  greetName: { fontSize: "18px", fontWeight: 500, color: "var(--slate-800)", letterSpacing: "-0.02em" },
-  greetSub:  { fontSize: "13px", color: "var(--slate-400)", marginTop: "4px" },
-  accentBar: {
-    margin: "16px 24px",
-    background: "var(--amber-100)",
-    borderRadius: "8px", padding: "10px 14px",
-    display: "flex", justifyContent: "space-between", alignItems: "center",
-  },
-  accentText:  { fontSize: "13px", color: "var(--amber-600)", fontWeight: 500 },
-  accentBadge: {
-    fontSize: "11px", color: "var(--amber-600)",
-    background: "var(--amber-200)", padding: "2px 8px",
-    borderRadius: "99px", fontWeight: 500,
-  },
-  filterRow: {
-    display: "flex", gap: "6px",
-    padding: "0 24px 14px",
-    alignItems: "center",
-  },
-  filterBtn: {
-    fontSize: "12px", padding: "5px 12px",
-    borderRadius: "99px", border: "1px solid var(--slate-200)",
-    background: "white", color: "var(--slate-500)",
-    cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
-  },
-  filterActive: {
-    background: "var(--slate-800)", color: "white",
-    border: "1px solid var(--slate-800)",
-  },
-  clearBtn: {
-    marginLeft: "auto", fontSize: "12px",
-    color: "var(--slate-400)", background: "none",
-    border: "none", cursor: "pointer",
-    fontFamily: "'DM Sans', sans-serif",
-  },
-  section:     { padding: "0 24px" },
-  sectionHead: {
-    display: "flex", justifyContent: "space-between",
-    alignItems: "center", marginBottom: "8px",
-  },
-  sectionTitle: {
-    fontSize: "11px", fontWeight: 500,
-    color: "var(--slate-400)", letterSpacing: "0.08em",
-    textTransform: "uppercase",
-  },
-  taskCount: {
-    fontSize: "11px", background: "var(--amber-100)",
-    color: "var(--amber-600)", padding: "2px 9px",
-    borderRadius: "99px", fontWeight: 500,
-  },
-  empty: {
-    textAlign: "center", padding: "28px 0",
-    fontSize: "13px", color: "var(--slate-300)",
-  },
-  taskRow: {
-    display: "flex", alignItems: "center",
-    gap: "12px", padding: "11px 0",
-    borderBottom: "1px solid var(--slate-100)",
-  },
-  checkbox: {
-    width: "20px", height: "20px", borderRadius: "6px",
-    border: "1.5px solid var(--slate-300)", flexShrink: 0,
-    display: "flex", alignItems: "center", justifyContent: "center",
-    cursor: "pointer",
-  },
-  checkboxDone:  { background: "var(--amber-500)", borderColor: "var(--amber-500)" },
-  taskText:      { fontSize: "14px", color: "var(--slate-700)", flex: 1 },
-  taskDone:      { color: "var(--slate-300)", textDecoration: "line-through" },
-  tag:           { fontSize: "11px", padding: "2px 8px", borderRadius: "99px", fontWeight: 500, flexShrink: 0 },
-  tagSlate:      { background: "var(--slate-100)", color: "var(--slate-500)" },
-  tagAmber:      { background: "var(--amber-100)", color: "var(--amber-600)" },
-  tagPersonal:   { background: "#ede9fe", color: "#6d28d9" },
-  tagSchool:     { background: "#dcfce7", color: "#15803d" },
-  deleteBtn: {
-    background: "none", border: "none",
-    color: "var(--slate-300)", cursor: "pointer",
-    fontSize: "12px", padding: "2px 4px",
-    borderRadius: "4px", flexShrink: 0,
-    fontFamily: "'DM Sans', sans-serif",
-  },
-  addRow: {
-    margin: "12px 24px",
-    background: "var(--slate-50)",
-    border: "1px dashed var(--slate-200)",
-    borderRadius: "8px", padding: "11px 14px",
-    display: "flex", alignItems: "center",
-    gap: "10px", cursor: "pointer",
-  },
-  addIcon: {
-    width: "20px", height: "20px",
-    background: "var(--amber-500)", color: "white",
-    borderRadius: "6px", display: "flex",
-    alignItems: "center", justifyContent: "center",
-    fontSize: "16px", lineHeight: 1, flexShrink: 0,
-  },
-  addText: { fontSize: "13px", color: "var(--slate-300)" },
-  addForm: {
-    margin: "12px 24px",
-    background: "var(--slate-50)",
-    border: "1px solid var(--slate-200)",
-    borderRadius: "8px", padding: "12px 14px",
-    display: "flex", flexDirection: "column", gap: "10px",
-  },
-  addInput: {
-    width: "100%", background: "white",
-    border: "1px solid var(--slate-200)",
-    borderRadius: "6px", padding: "9px 12px",
-    fontSize: "14px", color: "var(--slate-700)",
-    fontFamily: "'DM Sans', sans-serif", outline: "none",
-  },
-  addControls: { display: "flex", gap: "8px", alignItems: "center" },
-  tagSelect: {
-    fontSize: "12px", padding: "6px 10px",
-    borderRadius: "6px", border: "1px solid var(--slate-200)",
-    background: "white", color: "var(--slate-600)",
-    fontFamily: "'DM Sans', sans-serif", cursor: "pointer",
-  },
-  addConfirm: {
-    fontSize: "13px", padding: "6px 16px",
-    background: "var(--slate-800)", color: "white",
-    border: "none", borderRadius: "6px",
-    cursor: "pointer", fontFamily: "'DM Sans', sans-serif", fontWeight: 500,
-  },
-  addCancel: {
-    fontSize: "13px", padding: "6px 12px",
-    background: "none", color: "var(--slate-400)",
-    border: "1px solid var(--slate-200)", borderRadius: "6px",
-    cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
-  },
-  footer: {
-    display: "flex", justifyContent: "space-between",
-    padding: "12px 24px",
-    borderTop: "1px solid var(--slate-100)",
-    fontSize: "11px", color: "var(--slate-400)",
-    marginTop: "8px",
-  },
-};
+export default Protected;

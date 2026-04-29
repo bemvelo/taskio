@@ -15,8 +15,9 @@ export default function Register() {
     try {
       await axios.post("http://localhost:8000/register", { username, password });
       navigate("/login");
-    } catch (err: any) {
-      setError(err.response?.data?.detail || "Registration failed");
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { detail?: string } } };
+      setError(error.response?.data?.detail || "Registration failed");
     } finally {
       setLoading(false);
     }
