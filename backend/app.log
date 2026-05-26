@@ -102,3 +102,21 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2026-04-29 15:33:54,911 INFO Login success: tshabangu
 2026-04-29 15:33:54,931 INFO Protected accessed by: tshabangu
 2026-04-29 15:33:54,939 INFO Protected accessed by: tshabangu
+2026-05-11 11:39:42,519 INFO Login attempt: buhle
+2026-05-11 11:39:42,519 WARNING Failed login: buhle
+2026-05-11 11:40:00,398 INFO Register attempt: buhle
+2026-05-11 11:40:00,594 INFO Registered: buhle
+2026-05-11 11:40:13,546 INFO Login attempt: buhle
+2026-05-11 11:40:13,735 INFO Login success: buhle
+2026-05-11 11:40:13,761 INFO Protected accessed by: buhle
+2026-05-11 11:40:13,763 INFO Protected accessed by: buhle
+2026-05-26 15:26:39,528 INFO Login attempt: bemvelo
+2026-05-26 15:26:39,528 WARNING Failed login: bemvelo
+2026-05-26 15:26:56,365 INFO Register attempt: bemvelo
+2026-05-26 15:26:56,556 INFO Registered: bemvelo
+2026-05-26 15:27:06,272 INFO Login attempt: bemvelo
+2026-05-26 15:27:06,444 WARNING Failed login: bemvelo
+2026-05-26 15:27:09,156 INFO Login attempt: bemvelo
+2026-05-26 15:27:09,347 INFO Login success: bemvelo
+2026-05-26 15:27:09,367 INFO Protected accessed by: bemvelo
+2026-05-26 15:27:09,367 INFO Protected accessed by: bemvelo
